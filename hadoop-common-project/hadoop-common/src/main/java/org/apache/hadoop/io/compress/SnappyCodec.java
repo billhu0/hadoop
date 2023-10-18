@@ -87,7 +87,7 @@ public class SnappyCodec implements Configurable, CompressionCodec, DirectDecomp
         CommonConfigurationKeys.IO_COMPRESSION_CODEC_SNAPPY_BUFFERSIZE_KEY,
         CommonConfigurationKeys.IO_COMPRESSION_CODEC_SNAPPY_BUFFERSIZE_DEFAULT);
 
-    int compressionOverhead = (bufferSize / 6) + 32;
+    int compressionOverhead = Math.min((bufferSize / 6) + 32, bufferSize);
 
     return new BlockCompressorStream(out, compressor, bufferSize,
         compressionOverhead);
